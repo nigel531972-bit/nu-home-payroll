@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Contract Profitability - {{ period.label }}</h2>
+<a class="btn btn-primary" href="/reports/contract-profitability/{{ period.id }}/export/">Export</a>
+<table class="table"><tr><th>Contract</th><th>Billing</th><th>Labour</th><th>Overheads</th><th>Gross Profit</th><th>Net Profit</th></tr>{% for r in rows %}<tr><td>{{ r.contract }}</td><td>{{ r.billing }}</td><td>{{ r.labour }}</td><td>{{ r.overheads }}</td><td>{{ r.gross_profit }}</td><td>{{ r.net_profit }}</td></tr>{% endfor %}</table>
+{% endblock %}

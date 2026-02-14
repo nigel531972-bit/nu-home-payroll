@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between"><h2>Contracts</h2><a class="btn btn-primary" href="/payroll/contracts/new/">New</a></div>
+<table class="table"><tr><th>Name</th><th>Active</th><th>Internal</th></tr>{% for c in object_list %}<tr><td>{{ c.name }}</td><td>{{ c.active }}</td><td>{{ c.is_internal }}</td></tr>{% endfor %}</table>
+{% endblock %}

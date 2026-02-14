@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ period.label }} ({{ period.status }})</h2>
+<form method="post" class="mb-3">{% csrf_token %}<button name="generate_base" class="btn btn-outline-primary" {% if period.status == 'LOCKED' %}disabled{% endif %}>Generate Base Salary Lines</button><button name="lock_period" class="btn btn-danger">Lock Period</button></form>
+
+<h4>Pay Lines</h4>
+<form method="get" class="mb-2"><input name="employee" value="{{ request.GET.employee }}" placeholder="Filter by employee"/><button class="btn btn-sm btn-secondary">Filter</button></form>
+<table class="table table-sm"><tr><th>Employee</th><th>Contract</th><th>Code</th><th>Amount</th></tr>{% for line in pay_lines %}<tr><td>{{ line.employee }}</td><td>{{ line.contract }}</td><td>{{ line.pay_code }}</td><td>{{ line.amount }}</td></tr>{% endfor %}</table>
+<form method="post" class="card card-body mb-3">{% csrf_token %}{{ payline_form.as_p }}<button name="add_payline" class="btn btn-primary" {% if period.status == 'LOCKED' %}disabled{% endif %}>Add Pay Line</button></form>
+
+<h4>Billing Entry</h4>
+<table class="table table-sm"><tr><th>Contract</th><th>Billing pre-tax</th></tr>{% for b in billings %}<tr><td>{{ b.contract }}</td><td>{{ b.billing_pre_tax }}</td></tr>{% endfor %}</table>
+<form method="post" class="card card-body mb-3">{% csrf_token %}{{ billing_form.as_p }}<button name="add_billing" class="btn btn-primary" {% if period.status == 'LOCKED' %}disabled{% endif %}>Save Billing</button></form>
+
+<h4>Overheads</h4>
+<table class="table table-sm"><tr><th>Category</th><th>Method</th><th>Amount</th><th>Contract</th></tr>{% for o in overheads %}<tr><td>{{ o.category }}</td><td>{{ o.allocation_method }}</td><td>{{ o.amount }}</td><td>{{ o.contract }}</td></tr>{% endfor %}</table>
+<form method="post" class="card card-body mb-3">{% csrf_token %}{{ overhead_form.as_p }}<button name="add_overhead" class="btn btn-primary" {% if period.status == 'LOCKED' %}disabled{% endif %}>Save Overhead</button></form>
+
+<a class="btn btn-outline-success" href="/reports/payroll-register/{{ period.id }}/">Payroll Register</a>
+<a class="btn btn-outline-success" href="/reports/contract-labour/{{ period.id }}/">Contract Labour</a>
+<a class="btn btn-outline-success" href="/reports/contract-profitability/{{ period.id }}/">Contract Profitability</a>
+{% endblock %}

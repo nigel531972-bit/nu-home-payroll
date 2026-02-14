@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between"><h2>Pay Periods</h2><a class="btn btn-primary" href="/payroll/periods/new/">New</a></div>
+<table class="table"><tr><th>Label</th><th>Dates</th><th>Weeks</th><th>Status</th><th></th></tr>{% for p in object_list %}<tr><td>{{ p.label }}</td><td>{{ p.start_date }} to {{ p.end_date }}</td><td>{{ p.contribution_weeks }}</td><td>{{ p.status }}</td><td><a href="/payroll/periods/{{ p.id }}/">Open</a></td></tr>{% endfor %}</table>
+{% endblock %}

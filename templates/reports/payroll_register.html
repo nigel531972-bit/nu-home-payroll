@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Payroll Register - {{ period.label }}</h2>
+<a class="btn btn-primary" href="/reports/payroll-register/{{ period.id }}/export/">Export</a>
+<table class="table"><tr><th>Employee</th><th>Gross</th><th>NIS</th><th>Health</th><th>Deductions</th><th>Net</th><th>Employer NIS</th><th>Employer Cost</th></tr>{% for r in rows %}<tr><td>{{ r.employee }}</td><td>{{ r.gross }}</td><td>{{ r.employee_nis }}</td><td>{{ r.health_surcharge }}</td><td>{{ r.deductions }}</td><td>{{ r.net_pay }}</td><td>{{ r.employer_nis }}</td><td>{{ r.employer_cost }}</td></tr>{% endfor %}</table>
+{% endblock %}

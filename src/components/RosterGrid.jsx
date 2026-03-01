@@ -264,9 +264,6 @@ export default function RosterGrid() {
                   <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-purple-700 min-w-[40px] bg-purple-50/30">
                     3/7
                   </th>
-                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-gray-500 min-w-[52px]">
-                    View
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -287,11 +284,13 @@ export default function RosterGrid() {
                       }`}
                     >
                       <td
-                        className={`sticky left-0 z-10 px-3 py-2 text-sm font-medium border-r border-gray-200 ${
+                        className={`sticky left-0 z-10 px-3 py-2 text-sm font-medium border-r border-gray-200 cursor-pointer ${
                           hasViolation
                             ? 'bg-red-50 text-red-800'
                             : 'bg-white text-gray-900'
                         }`}
+                        onClick={() => setSelectedEmployee(emp)}
+                        title={`Click to view ${emp.name}'s full roster`}
                       >
                         <div className="flex items-center gap-2">
                           {hasViolation && (
@@ -302,7 +301,7 @@ export default function RosterGrid() {
                                 .join('\n')}
                             ></span>
                           )}
-                          <span className="truncate">{emp.name}</span>
+                          <span className="truncate text-blue-700 hover:text-blue-900 underline decoration-blue-300">{emp.name}</span>
                         </div>
                       </td>
                       {dates.map((date, idx) => {
@@ -349,15 +348,6 @@ export default function RosterGrid() {
                       </td>
                       <td className="px-2 py-1.5 text-center border-gray-200 text-xs font-medium text-purple-600">
                         {total37}
-                      </td>
-                      <td className="px-2 py-1.5 text-center border-gray-200">
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setSelectedEmployee(emp); }}
-                          className="px-2 py-1 text-xs font-medium rounded-md bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors whitespace-nowrap"
-                          title={`View ${emp.name}'s full roster`}
-                        >
-                          View
-                        </button>
                       </td>
                     </tr>
                   );

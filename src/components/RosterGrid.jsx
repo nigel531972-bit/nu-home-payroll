@@ -301,7 +301,10 @@ export default function RosterGrid() {
                                 .join('\n')}
                             ></span>
                           )}
-                          <span className="truncate text-blue-700 hover:text-blue-900 underline decoration-blue-300">{emp.name}</span>
+                          <span
+                            className="truncate"
+                            style={{ color: '#1d4ed8', textDecoration: 'underline', cursor: 'pointer' }}
+                          >{emp.name}</span>
                         </div>
                       </td>
                       {dates.map((date, idx) => {

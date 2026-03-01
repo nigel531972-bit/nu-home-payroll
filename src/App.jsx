@@ -10,6 +10,9 @@ function App() {
   return (
     <RosterProvider>
       <div className="min-h-screen bg-gray-100">
+        <div style={{ background: 'red', color: 'white', padding: '12px', textAlign: 'center', fontSize: '20px', fontWeight: 'bold' }}>
+          TEST BANNER - Click employee names to view roster
+        </div>
         <Header currentView={view} onNavigate={setView} />
         <main className="max-w-screen-2xl mx-auto px-4 py-6">
           {view === 'roster' && <RosterGrid />}

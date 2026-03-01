@@ -264,7 +264,8 @@ export default function RosterGrid() {
                   <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-purple-700 min-w-[40px] bg-purple-50/30">
                     3/7
                   </th>
-                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-gray-500 min-w-[32px]">
+                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-gray-500 min-w-[52px]">
+                    View
                   </th>
                 </tr>
               </thead>
@@ -352,7 +353,7 @@ export default function RosterGrid() {
                       <td className="px-2 py-1.5 text-center border-gray-200">
                         <button
                           onClick={(e) => { e.stopPropagation(); setSelectedEmployee(emp); }}
-                          className="text-[10px] text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                          className="px-2 py-1 text-xs font-medium rounded-md bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-colors whitespace-nowrap"
                           title={`View ${emp.name}'s full roster`}
                         >
                           View

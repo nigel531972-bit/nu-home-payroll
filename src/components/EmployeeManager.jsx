@@ -86,7 +86,7 @@ export default function EmployeeManager() {
                     <span className="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">
                       {idx + 1}
                     </span>
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-sm font-medium" style={{ color: '#1d4ed8' }}>
                       {emp.name}
                     </span>
                   </div>

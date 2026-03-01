@@ -6,6 +6,7 @@ import {
   autoGenerateRoster,
   validateRoster,
 } from '../data/scheduler';
+import EmployeeRosterModal from './EmployeeRosterModal';
 
 const DAY_ABBREVS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -41,6 +42,7 @@ export default function RosterGrid() {
 
   const [editingCell, setEditingCell] = useState(null); // { empId, dateIdx }
   const [showViolations, setShowViolations] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const dates = useMemo(
     () => getRosterDates(rosterYear, rosterMonth),
@@ -250,8 +252,19 @@ export default function RosterGrid() {
                       </div>
                     </th>
                   ))}
-                  <th className="px-3 py-2 text-center border-b border-l border-gray-200 text-xs font-semibold text-gray-600 min-w-[50px]">
+                  <th className="px-2 py-2 text-center border-b border-l border-gray-200 text-xs font-semibold text-blue-700 min-w-[48px] bg-blue-50/50">
+                    Worked
+                  </th>
+                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-yellow-700 min-w-[40px] bg-yellow-50/50">
                     Off
+                  </th>
+                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-indigo-700 min-w-[40px] bg-indigo-50/30">
+                    7/3
+                  </th>
+                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-purple-700 min-w-[40px] bg-purple-50/30">
+                    3/7
+                  </th>
+                  <th className="px-2 py-2 text-center border-b border-gray-200 text-xs font-semibold text-gray-500 min-w-[32px]">
                   </th>
                 </tr>
               </thead>
@@ -259,9 +272,11 @@ export default function RosterGrid() {
                 {employees.map((emp) => {
                   const empSchedule = schedule[emp.id] || {};
                   const hasViolation = !!violationsByEmployee[emp.id];
-                  const totalOff = Object.values(empSchedule).filter(
-                    (v) => v === 'off'
-                  ).length;
+                  const values = Object.values(empSchedule);
+                  const totalOff = values.filter(v => v === 'off').length;
+                  const totalWorked = values.filter(v => v !== 'off').length;
+                  const total73 = values.filter(v => v === '7/3').length;
+                  const total37 = values.filter(v => v === '3/7').length;
 
                   return (
                     <tr
@@ -322,8 +337,26 @@ export default function RosterGrid() {
                           </td>
                         );
                       })}
-                      <td className="px-2 py-1.5 text-center border-l border-gray-200 text-xs font-medium text-gray-600">
+                      <td className="px-2 py-1.5 text-center border-l border-gray-200 text-xs font-bold text-blue-700 bg-blue-50/30">
+                        {totalWorked}
+                      </td>
+                      <td className="px-2 py-1.5 text-center border-gray-200 text-xs font-bold text-yellow-700 bg-yellow-50/30">
                         {totalOff}
+                      </td>
+                      <td className="px-2 py-1.5 text-center border-gray-200 text-xs font-medium text-indigo-600">
+                        {total73}
+                      </td>
+                      <td className="px-2 py-1.5 text-center border-gray-200 text-xs font-medium text-purple-600">
+                        {total37}
+                      </td>
+                      <td className="px-2 py-1.5 text-center border-gray-200">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setSelectedEmployee(emp); }}
+                          className="text-[10px] text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                          title={`View ${emp.name}'s full roster`}
+                        >
+                          View
+                        </button>
                       </td>
                     </tr>
                   );
@@ -332,6 +365,18 @@ export default function RosterGrid() {
             </table>
           </div>
         </div>
+      )}
+
+      {/* Individual Employee Roster Modal */}
+      {selectedEmployee && schedule && (
+        <EmployeeRosterModal
+          employee={selectedEmployee}
+          schedule={schedule}
+          dates={dates}
+          contractName={contract.name}
+          periodLabel={`${startLabel} — ${endLabel}`}
+          onClose={() => setSelectedEmployee(null)}
+        />
       )}
     </div>
   );

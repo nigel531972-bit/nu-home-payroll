@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-roster, #print-roster * {
+    visibility: visible;
+  }
+  #print-roster {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
